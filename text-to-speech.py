@@ -9,8 +9,13 @@ class TextToSpeech:
     def __init__(self):
         try:
             self.engine = pyttsx3.init()
+            self.engine.setProperty('rate', 150)
+            voices = self.engine.getProperty('voices')
+            if voices:
+                self.engine.setProperty('voice', voices[1].id)
         except Exception as e:
             print(f"Text-to-speech engine failed to initialize: {e}")
+            self.engine = None
 
         try:
             self.nlp = spacy.load("en_core_web_sm")
